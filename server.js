@@ -1,29 +1,25 @@
-const bodyParser = require('body-parser');
-const morgan = require('morgan');
-const compression = require('compression');
-const path = require('path');
-const http = require('http');
-const pool = require('./config/db.config');
-const index = require('./server/routes/index.route');
+require('dotenv').config();
 
-const express = require('express');
+const express = require('express'),
+    path = require('path'),
+    mysql = require('mysql'),
+    bodyParser = require('body-parser');
+
+const PORT = process.env.PORT || 5000;
+
 const app = express();
 
-// compressing api response
-app.use(compression());
-
-// logger
-app.use(morgan('dev'));
-
-// body-parser
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
+app.use(express.json());
 
-// database connection
-pool.query('USE stackoverflow');
-global.pool = pool;
+const connection = mysql.createConnection({
+    host: process.env.HOST,
+    user: process.env.USER,
+    password: process.env.PASSWORD,
+    database: process.env.DATABASE,
+    multipleStatements: true
+});
 
-// connection with client setup
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/build'));
 
@@ -32,15 +28,24 @@ if (process.env.NODE_ENV === 'production') {
     });
 }
 
-// all the api routes
-app.use('/api', index);
 
-// port initialized
-const PORT = process.env.PORT || 5000;
+connection.query('USE stackoverflow');
+global.connection = connection;
 
-// server setup
-const server = http.createServer(app);
+//DEFINE ROUTES
+app.use('/api/auth', require('./server/routes/api/auth'));
+app.use('/api/users', require('./server/routes/api/users'));
+app.use('/api/posts', require('./server/routes/api/posts'));
+app.use('/api/tags', require('./server/routes/api/tags'));
+app.use('/api/posts/answers', require('./server/routes/api/answers'));
+app.use('/api/posts/comments', require('./server/routes/api/comments'));
 
-server.listen(PORT, () => {
-    console.log(`Server started on port ${PORT}`);
+
+
+//----------------------- ROUTES ---------------------------------------------------------------------------------------
+
+app.get('/', (req, res) => {
+    res.send('API Running...');
 });
+
+app.listen(PORT, () => console.log(`Server started on port ${PORT}`));

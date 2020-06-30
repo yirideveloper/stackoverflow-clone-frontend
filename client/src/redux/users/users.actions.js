@@ -12,7 +12,7 @@ export const getUsers = () => async dispatch => {
         const res = await axios.get('/api/users');
         dispatch({
             type: GET_USERS,
-            payload: res.data.data
+            payload: res.data
         });
     } catch (err) {
         dispatch({
@@ -25,11 +25,12 @@ export const getUsers = () => async dispatch => {
 // Get user
 export const getUser = id => async dispatch => {
     try {
+
         const res = await axios.get(`/api/users/${id}`);
 
         dispatch({
             type: GET_USER,
-            payload: res.data.data
+            payload: res.data
         });
     } catch (err) {
         dispatch({

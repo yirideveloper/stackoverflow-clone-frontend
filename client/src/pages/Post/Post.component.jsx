@@ -2,10 +2,10 @@ import React, {useEffect, Fragment,useState} from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { getPost, deletePost } from '../../redux/posts/posts.actions';
-import { getAnswers, deleteAnswer, addAnswer } from '../../redux/answers/answers.actions';
-import { getComments, deleteComment, addComment } from '../../redux/comments/comments.actions';
-import timeAgo from '../../services/timeAgo.service';
+import { getPost,deletePost } from '../../redux/posts/posts.actions';
+import { getAnswers,deleteAnswer, addAnswer } from '../../redux/answers/answers.actions';
+import { getComments,deleteComment,addComment } from '../../redux/comments/comments.actions';
+import timeAgo from "../../utils/timeAgo.utils";
 
 import { ReactComponent as UpVote } from '../../assets/sort-up-solid.svg';
 import { ReactComponent as DownVote } from '../../assets/sort-down-solid.svg';
@@ -15,14 +15,14 @@ import RightSideBar from '../../components/right-sideBar/right-sideBar.component
 
 import './Post.styles.scss'
 
-const Post = ({ deletePost, deleteAnswer, addAnswer, deleteComment, addComment, getAnswers, getComments, auth, getPost, answer: { answers }, comment: { comments }, post: { post, loading }, match }) => {
+const Post = ({ deletePost,deleteAnswer,addAnswer,deleteComment,addComment,getAnswers,getComments,auth,getPost,answer: { answers },comment: { comments } , post: { post, loading } , match }) => {
 
     useEffect(() => {
         getPost(match.params.id);
         getAnswers(match.params.id);
         getComments(match.params.id);
         // eslint-disable-next-line
-    }, [ getPost, getAnswers, getComments ]);
+    }, [getPost,getAnswers,getComments]);
 
     const [ formData, setFormData ] = useState({
         body: ''
@@ -33,8 +33,7 @@ const Post = ({ deletePost, deleteAnswer, addAnswer, deleteComment, addComment, 
     const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
     const onSubmit = async e => {
-        e.preventDefault();
-        addComment(match.params.id, {body});
+        addComment(match.params.id,{body});
         setFormData({
             body: ''
         });
@@ -49,7 +48,6 @@ const Post = ({ deletePost, deleteAnswer, addAnswer, deleteComment, addComment, 
     const onChangeAnswer = e => setFormDataAnswer({ ...formData, [e.target.name]: e.target.value });
 
     const onSubmitAnswer = async e => {
-        e.preventDefault();
         addAnswer(match.params.id,{text});
         setFormDataAnswer({
             text: ''
@@ -59,7 +57,7 @@ const Post = ({ deletePost, deleteAnswer, addAnswer, deleteComment, addComment, 
     return loading || post === null ? <Fragment>Loading...</Fragment> : <Fragment>
         <div className='page'>
             <SideBar/>
-            <div className='post'>
+            <div className='Post'>
                 <div className='main-entity'>
                     <div className='inner-content'>
                         <div className='question-header'>
@@ -71,7 +69,7 @@ const Post = ({ deletePost, deleteAnswer, addAnswer, deleteComment, addComment, 
                             </div>
                         </div>
                         <div className='question-date'>
-                            <div className='grid-cell'>
+                            <div className='grid--cell'>
                                 <span>
                                     Asked
                                 </span>
@@ -194,6 +192,9 @@ const Post = ({ deletePost, deleteAnswer, addAnswer, deleteComment, addComment, 
                                                         placeholder='add comment'
                                                     />
                                                 </div>
+                                                {/*<a href={`/questions/${post.id}`} className='comment-button'>*/}
+                                                {/*    <a className='btn btn-primary' id='submit-button' name='submit-button'>Add your comment</a>*/}
+                                                {/*</a>*/}
                                             </form>
                                         </div>
                                     </div>
@@ -202,7 +203,7 @@ const Post = ({ deletePost, deleteAnswer, addAnswer, deleteComment, addComment, 
                             </div>
                             <div className='answer'>
                                 <div className='answer-header'>
-                                    <div className='answer-sub-header'>
+                                    <div className='answer-subheader'>
                                         <div className='answer-headline'>
                                             <h2>Answers</h2>
                                         </div>

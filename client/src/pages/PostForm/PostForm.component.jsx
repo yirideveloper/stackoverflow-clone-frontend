@@ -1,4 +1,4 @@
-import React, {Fragment, useState} from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -31,17 +31,17 @@ const PostForm = ({ auth:{ isAuthenticated, loading }, addPost }) => {
         return <Redirect to='/login' />;
     }
 
-    return loading === null ? <Fragment>Loading...</Fragment> : <Fragment>
-        <div className='post-form-container'>
-            <div className='post-form-content'>
-                <div className='post-form-header'>
-                    <div className='post-form-headline'>
+    return (
+        <div className='postform-container'>
+            <div className='postform-content'>
+                <div className='postform-header'>
+                    <div className='postform-headline'>
                         Ask a public question
                     </div>
                 </div>
-                <div className='post-form-section'>
+                <div className='postform-section'>
                     <div className='postform'>
-                        <form onSubmit={e => onSubmit(e)}>
+                        <form className='post-form' onSubmit={e => onSubmit(e)}>
                             <div className='question-form'>
                                 <div className='question-layout'>
                                     <div className='title-grid'>
@@ -180,7 +180,8 @@ const PostForm = ({ auth:{ isAuthenticated, loading }, addPost }) => {
                 </div>
             </div>
         </div>
-    </Fragment>
+
+    )
 };
 
 PostForm.propTypes = {

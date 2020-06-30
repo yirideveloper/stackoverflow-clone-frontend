@@ -10,7 +10,7 @@ export const getTags = () => async dispatch => {
 
         dispatch({
             type: GET_TAGS,
-            payload: res.data.data
+            payload: res.data
         });
     } catch (err) {
         dispatch({

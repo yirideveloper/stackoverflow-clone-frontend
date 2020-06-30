@@ -1,7 +1,8 @@
-import React, {Fragment, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getUsers } from '../../redux/users/users.actions';
+// import { Link } from 'react-router-dom';
 
 import './UsersPage.styles.scss'
 import SideBar from '../../components/SideBar/SideBar.component';
@@ -13,11 +14,11 @@ const UsersPage = ({ getUsers, user: { users, loading }  }) => {
         getUsers();
     }, [getUsers]);
 
-    return loading || users === null ? <Fragment>Loading...</Fragment> : <Fragment>
+    return (
         <div className='page'>
             <SideBar/>
-            <div className='users-page'>
-                <div className='main-bar'>
+            <div className='userspage'>
+                <div className='mainbar'>
                     <h1 className='headline'>Users</h1>
                     <div className='headline-count'>
                         <span>1,025 users</span>
@@ -32,7 +33,7 @@ const UsersPage = ({ getUsers, user: { users, loading }  }) => {
             </div>
             <RightSideBar/>
         </div>
-    </Fragment>
+    )
 };
 
 UsersPage.propTypes = {

@@ -2,14 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import timeAgo from '../../services/timeAgo.service';
+import timeAgo from "../../utils/timeAgo.utils";
 
 import './PostItem.styles.scss';
 
-const PostItem = ({ post: { id, title, body, tagname, username, user_id, answer_count, comment_count, created_at } }) => {
+const PostItem = ({ post: {id,title,body,tagname,username,user_id,tag_id,answer_count,comment_count,created_at} }) => {
     return (
         <div className='posts'>
-            <div className='stats-container'>
+            <div className='statsContainer'>
                 <div className='stats'>
                     <div className='vote'>
                         <span className='vote-count'>{answer_count}</span>

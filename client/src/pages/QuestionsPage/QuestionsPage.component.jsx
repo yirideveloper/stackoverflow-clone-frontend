@@ -11,17 +11,17 @@ import RightSideBar from '../../components/right-sideBar/right-sideBar.component
 import './QuestionsPage.styles.scss'
 
 
-const QuestionsPage = ({ getPosts, post: { posts, loading }  }) => {
+const QuestionsPage = ({ getPosts, auth, post: { posts, loading }  }) => {
     useEffect(() => {
         getPosts();
-    }, [ getPosts ]);
+    }, [getPosts]);
 
     return loading || posts === null ? <Fragment>Loading...</Fragment> : <Fragment>
         <div className='page'>
             <SideBar/>
 
-            <div className='questions-page'>
-                <div className='main-bar'>
+            <div className='questionspage'>
+                <div className='mainbar'>
                     <div className='questions-grid'>
                         <h3 className='questions-headline'>All Questions</h3>
                         <div className='questions-btn'>
@@ -42,16 +42,20 @@ const QuestionsPage = ({ getPosts, post: { posts, loading }  }) => {
             <RightSideBar/>
         </div>
         </Fragment>
+
+
 };
 
 
 QuestionsPage.propTypes = {
     getPosts: PropTypes.func.isRequired,
-    post: PropTypes.object.isRequired
+    post: PropTypes.object.isRequired,
+    auth: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-    post: state.post
+    post: state.post,
+    auth: state.auth
 });
 
 export default connect(mapStateToProps, { getPosts })(QuestionsPage);

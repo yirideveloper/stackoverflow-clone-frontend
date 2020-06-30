@@ -17,12 +17,13 @@ export const loadUser = () => async dispatch => {
     if (localStorage.token){
         setAuthToken(localStorage.token);
     }
+
     try {
         const res = await axios.get('/api/auth');
 
         dispatch({
             type: USER_LOADED,
-            payload: res.data.data
+            payload: res.data
         });
     } catch (err) {
         dispatch({
@@ -46,14 +47,16 @@ export const register = ({ username, password }) => async dispatch => {
 
         dispatch({
             type: REGISTER_SUCCESS,
-            payload: res.data.data
+            payload: res.data
         });
-
-        dispatch(setAlert(res.data.message, 'success'));
 
         dispatch(loadUser());
     } catch (err) {
-        dispatch(setAlert(err.response.data.message, 'danger'));
+        const errors = err.response.data.errors;
+
+        if (errors) {
+            errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+        }
 
         dispatch({
             type: REGISTER_FAIL
@@ -76,14 +79,16 @@ export const login = ({ username, password }) => async dispatch => {
 
         dispatch({
             type: LOGIN_SUCCESS,
-            payload: res.data.data
+            payload: res.data
         });
-
-        dispatch(setAlert(res.data.message, 'success'));
 
         dispatch(loadUser());
     } catch (err) {
-        dispatch(setAlert(err.response.data.message, 'danger'));
+        const errors = err.response.data.errors;
+
+        if (errors) {
+            errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+        }
 
         dispatch({
             type: LOGIN_FAIL
@@ -93,7 +98,6 @@ export const login = ({ username, password }) => async dispatch => {
 
 //LOGOUT
 export const logout = () => dispatch => {
-    dispatch(setAlert('User has logged out', 'success'));
-
     dispatch({ type: LOGOUT });
 };
+
