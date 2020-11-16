@@ -27,7 +27,6 @@ __:new: New Update:__ _newly added features are mentined in issue([#15](https://
 - [Demo](#demo)
   - [Video](#video---watch-the-video)
   - [Images](#images)
-- [Future Scope](#future-scope)
 
 ## My Tech Stack (MERN)
 
@@ -103,10 +102,6 @@ _NOTE: Might take sometime to start as there will be 2 servers running._
 #### Tags
 * `GET /tags`
 * `GET /tags/:tag_name`
-
-## Future Scope
-* Setup `Sequelize` with `MySQL` in the `API`.
-* Deploy the database to cloud, API, and client-side.
 
 ## DEMO
 
