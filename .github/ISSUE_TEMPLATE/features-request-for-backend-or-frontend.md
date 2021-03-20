@@ -1,8 +1,7 @@
 ---
-name: Feature or enhancement request
-about: Suggest an idea or an enhancement for this project
-title: "[FEATURE]: Write a descriptive idea title or [ENHANCEMENT]: Suggest an enhancement
-  for the project"
+name: Features Request for Backend or Frontend
+about: Suggest an idea for the project
+title: "[Backend/Frontend]: Write a descriptive idea title"
 labels: enhancement, feature
 assignees: ''
 
