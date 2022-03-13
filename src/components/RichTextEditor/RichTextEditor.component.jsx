@@ -1,6 +1,5 @@
 import React, {useState, forwardRef, useImperativeHandle} from 'react';
 import RichTextEditor from 'react-rte';
-
 import './RichTextEditor.styles.scss';
 
 const MyStatefulEditor = forwardRef((props, ref) => {
