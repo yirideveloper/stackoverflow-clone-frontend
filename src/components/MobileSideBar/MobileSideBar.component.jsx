@@ -5,7 +5,7 @@ import { ReactComponent as Hamburger } from "../../assets/LogoGlyphMd.svg";
 import { ReactComponent as Stack } from "../../assets/LogoMd.svg";
 import { ReactComponent as GlobalIcon } from "../../assets/Globe.svg";
 
-import "./SideNavBar.styles.scss";
+import "./MobileSideBar.styles.scss";
 
 const SidebarUI = ({ isOpen, ...rest }) => {
 	const classes = ["Sidebar", isOpen ? "is-open" : ""];
@@ -30,7 +30,7 @@ SidebarUI.Content = ({ width = "20rem", isRight = false, ...rest }) => {
 	return <div className={classes.join(" ")} style={style} {...rest} />;
 };
 
-const SideNavBar = (props) => {
+const MobileSideBar = (props) => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	function openSidebar(isOp = true) {
@@ -55,7 +55,7 @@ const SideNavBar = (props) => {
 						<NavLink
 							exact
 							activeClassName="active"
-							className="home-link nav_link"
+							className="home-link"
 							to="/"
 						>
 							<p>Home</p>
@@ -65,7 +65,7 @@ const SideNavBar = (props) => {
 							<p className="title fc-light">PUBLIC</p>
 							<NavLink
 								activeClassName="active"
-								className="icon-link nav_link"
+								className="icon-link"
 								to="/questions"
 							>
 								<p>
@@ -75,21 +75,21 @@ const SideNavBar = (props) => {
 							</NavLink>
 							<NavLink
 								activeClassName="active"
-								className="link nav_link"
+								className="link"
 								to="/tags"
 							>
 								<p>Tags</p>
 							</NavLink>
 							<NavLink
 								activeClassName="active"
-								className="link nav_link"
+								className="link"
 								to="/users"
 							>
 								<p>Users</p>
 							</NavLink>
 							<NavLink
 								activeClassName="active"
-								className="link nav_link"
+								className="link"
 								to="/jobs"
 							>
 								<p>Jobs</p>
@@ -103,11 +103,9 @@ const SideNavBar = (props) => {
 			</SidebarUI.Content>
 			{hasOverlay ? (
 				<SidebarUI.Overlay onClick={() => openSidebar(false)} />
-			) : (
-				false
-			)}
+			) : false}
 		</SidebarUI>
 	);
 };
 
-export default SideNavBar;
+export default MobileSideBar;
