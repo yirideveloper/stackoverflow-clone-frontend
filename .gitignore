@@ -6,4 +6,3 @@
 package-lock.json
 /client/package-lock.json
 yarn.lock
-.vercel
